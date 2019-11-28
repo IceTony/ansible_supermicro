@@ -1,0 +1,6 @@
+---
+
+- name: disable https redirect
+  command: "SMCIPMITool {{ item }} {{ ipmi_user }} {{ ipmi_password }} ipmi oem portService ssl n"
+  with_items:
+    - "{{ ipmi_list }}"

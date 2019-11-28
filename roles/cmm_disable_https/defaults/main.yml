@@ -1,0 +1,9 @@
+---
+
+ipmi_user: "ADMIN"
+ipmi_password: "ADMIN"
+cmm_current_list: [
+  "10.181.0.213",
+  "10.181.0.196",
+  "10.181.0.155"
+]

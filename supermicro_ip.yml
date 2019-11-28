@@ -1,0 +1,9 @@
+---
+
+- name: supermicro
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - ipmi_network
+    - switch_network
+    - cmm_network

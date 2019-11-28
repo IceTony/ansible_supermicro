@@ -1,0 +1,29 @@
+---
+
+- name: copy files
+  copy:
+    src: "/media/administrator/X/TEST"
+    dest: "/home/administrator/"
+    remote_src: yes
+    mode: 0777
+
+- name: copy config
+  template:
+    src: "templates/NetTest.conf.j2"
+    dest: "/etc/ld.so.conf.d/NetTest.conf"
+    mode: 0755
+    force: yes
+  become: yes
+
+- name: run ldconfig
+  command: ldconfig
+
+- name: run rx test
+  command: "/usr/bin/screen -dmS rx /home/administrator/TEST/NetTest/RxInfiniBand 1111 1 1"
+  when: "{{ inventory_hostname.split('.')[-1] | int % 2 }} != 0"
+  become: no
+
+- name: run tx test
+  command: "/usr/bin/screen -dmS tx /home/administrator/TEST/NetTest/TxInfiniBand {{ inventory_hostname.split('.')[0:3] | join('.') }}.{{ inventory_hostname.split('.')[-1] | int - 1 }} 1111 65536 1 1"
+  when: "{{ inventory_hostname.split('.')[-1] | int % 2 }} == 0"
+  become: no

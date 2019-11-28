@@ -1,0 +1,34 @@
+---
+
+- name: disable dhcp
+  command: "SMCIPMITool {{ item[0] }} {{ ipmi_user }} {{ ipmi_password }} microblade node dhcp {{ item[1] }} 1 1"
+  with_nested:
+    - "{{ cmm_current_list }}"
+    - "{{ blade_id_list }}"
+  loop_control:
+    pause: 1
+
+- name: set address
+  command: "SMCIPMITool {{ item[0] }} {{ ipmi_user }} {{ ipmi_password }} microblade node ip {{ item[1] }} 1 {{ address }}{{ ansible_loop.index | int + ip_index | int }}"
+  with_nested:
+    - "{{ cmm_current_list }}"
+    - "{{ blade_id_list }}"
+  loop_control:
+    extended: yes
+    pause: 1
+
+- name: set netmask
+  command: "SMCIPMITool {{ item[0] }} {{ ipmi_user }} {{ ipmi_password }} microblade node mask {{ item[1] }} 1 {{ netmask }}"
+  with_nested:
+    - "{{ cmm_current_list }}"
+    - "{{ blade_id_list }}"
+  loop_control:
+    pause: 1
+
+- name: set gateway
+  command: "SMCIPMITool {{ item[0] }} {{ ipmi_user }} {{ ipmi_password }} microblade node gateway {{ item[1] }} 1 {{ gateway }}"
+  with_nested:
+    - "{{ cmm_current_list }}"
+    - "{{ blade_id_list }}"
+  loop_control:
+    pause: 1

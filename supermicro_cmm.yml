@@ -1,0 +1,9 @@
+---
+
+- name: supermicro
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - cmm_disable_https
+    - switch_network
+    - cmm_network

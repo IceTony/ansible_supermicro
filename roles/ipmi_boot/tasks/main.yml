@@ -1,0 +1,21 @@
+---
+
+- name: set boot device
+  ipmi_boot:
+    name: "{{ item }}"
+    user: "{{ ipmi_user }}"
+    password: "{{ ipmi_password }}"
+    bootdev: network
+  with_items:
+    - "{{ ipmi_list }}"
+
+- name: power on
+  ipmi_power:
+    name: "{{ item }}"
+    user: "{{ ipmi_user }}"
+    password: "{{ ipmi_password }}"
+    state: on
+  with_items:
+    - "{{ ipmi_list }}"
+  loop_control:
+    pause: 30

@@ -1,0 +1,8 @@
+---
+
+- name: install packages
+  apt:
+    pkg: "cifs-utils"
+    state: present
+    update_cache: yes
+  become: true

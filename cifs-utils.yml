@@ -1,0 +1,7 @@
+---
+
+- name: cifs-utils
+  hosts: cifs-utils
+  gather_facts: no
+  roles:
+    - cifs-utils

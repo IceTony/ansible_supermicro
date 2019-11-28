@@ -1,0 +1,22 @@
+---
+
+- name: cmm disable dhcp
+  command: "SMCIPMITool {{ item }} {{ ipmi_user }} {{ ipmi_password }} superblade cmm 1 dhcp disable"
+  with_items:
+    - "{{ cmm_current_list }}"
+
+- name: set address
+  command: "SMCIPMITool {{ item.0 }} {{ ipmi_user }} {{ ipmi_password }} superblade cmm 1 ip {{ item.1 }}"
+  with_together:
+    - "{{ cmm_current_list }}"
+    - "{{ cmm_new_list }}"
+
+- name: set netmask
+  command: "SMCIPMITool {{ item }} {{ ipmi_user }} {{ ipmi_password }} superblade cmm 1 netmask {{ netmask }}"
+  with_items:
+    - "{{ cmm_new_list }}"
+
+- name: set gateway
+  command: "SMCIPMITool {{ item }} {{ ipmi_user }} {{ ipmi_password }} superblade cmm 1 gateway {{ gateway }}"
+  with_items:
+    - "{{ cmm_new_list }}"

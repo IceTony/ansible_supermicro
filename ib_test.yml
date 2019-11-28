@@ -1,0 +1,9 @@
+---
+
+- name: Run IB test
+  hosts: ib_test
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  roles:
+    - ib_test
